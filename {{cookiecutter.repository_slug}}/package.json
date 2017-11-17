@@ -4,7 +4,13 @@
   "description": "{{cookiecutter.repository_description}}",
   "global": "{{cookiecutter.global}}",
   "install": "./install.sh ${PREFIX:-/usr/local}",
-  "scripts": [ "bin/{{cookiecutter.package_name}}" ],
-  "files": [ "lib/{{cookiecutter.package_name.replace('-', '')}}.sh" ],
-  "dependencies": {}
+  "scripts": [
+    "bin/{{cookiecutter.package_name}}"
+  ],
+  "files": [
+    "lib/{{cookiecutter.package_name.replace('-', '')}}.sh"
+  ],
+  "dependencies": {
+    "shellm-shellman": "master"
+  }
 }
