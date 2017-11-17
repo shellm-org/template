@@ -1,5 +1,5 @@
-if ndef __{{cookiecutter.package_name.upper()}}_SH; then
-define __{{cookiecutter.package_name.upper()}}_SH "{{cookiecutter.package_name.replace('-', '_')}}"
+if ndef __{{cookiecutter.package_name.replace('-', '').upper()}}_SH; then
+define __{{cookiecutter.package_name.replace('-', '').upper()}}_SH "{{cookiecutter.package_name.replace('-', '_')}}"
 
 ## \brief {{cookiecutter.repository_description}}
 
