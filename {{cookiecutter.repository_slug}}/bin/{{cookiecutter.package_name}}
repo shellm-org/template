@@ -2,9 +2,9 @@
 
 ## \brief {{cookiecutter.repository_description}}
 
-include core/shellman.sh
+include shellman.sh
 
-[ $# -eq 0 ] && usage
+[ $# -eq 0 ] && shellman_usage
 
 main() {
   case "$1" in

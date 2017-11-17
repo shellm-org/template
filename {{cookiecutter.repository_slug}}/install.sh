@@ -10,10 +10,16 @@ if [ ! -n "$1" ]; then
 fi
 
 APP_ROOT="$(dirname "$(readlink -f "$0")")"
-mkdir -p "${PREFIX}"/{bin,lib/shellm,share/man/man{1,3}}
-cp -R "${APP_ROOT}"/bin/* "${PREFIX}"/bin
-cp -R "${APP_ROOT}"/lib/* "${PREFIX}"/lib/shellm
-cp "${APP_ROOT}"/man/*.1 "${PREFIX}"/share/man/man1
-cp "${APP_ROOT}"/man/*.3 "${PREFIX}"/share/man/man3
 
-echo "Installed {{cookiecutter.package_name}} to ${PREFIX}/bin/{{cookiecutter.package_name}}"
+echo "Create directories"
+mkdir -vp "${PREFIX}"/{bin,lib/shellm,share/man/man{1,3}}
+
+echo "Install binaries"
+cp -vR "${APP_ROOT}"/bin/* "${PREFIX}"/bin
+
+echo "Install libraries"
+cp -vR "${APP_ROOT}"/lib/* "${PREFIX}"/lib/shellm
+
+echo "Install man pages"
+cp -v "${APP_ROOT}"/man/*.1 "${PREFIX}"/share/man/man1
+cp -v "${APP_ROOT}"/man/*.3 "${PREFIX}"/share/man/man3
