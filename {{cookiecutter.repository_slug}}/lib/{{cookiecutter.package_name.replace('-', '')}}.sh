@@ -8,4 +8,4 @@ define __{{cookiecutter.package_name.replace('-', '').upper()}}_SH "{{cookiecutt
   :  # code
 }
 
-fi  # __{{cookiecutter.package_name.upper()}}_SH
+fi  #  __{{cookiecutter.package_name.replace('-', '').upper()}}_SH
