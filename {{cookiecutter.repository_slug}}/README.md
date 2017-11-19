@@ -14,8 +14,8 @@ Installation can be done through
 [bpkg](https://github.com/bpkg/bpkg), with:
 ```bash
 basher install {{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}
-bpkg install {{cookiecutter.package_name}}  # local installation
-sudo bpkg install {{cookiecutter.package_name}} -g  # global installation
+bpkg install {{cookiecutter.repository_namespace}}/{{cookiecutter.package_name}}  # local installation
+sudo bpkg install {{cookiecutter.repository_namespace}}/{{cookiecutter.package_name}} -g  # global installation
 ```
 
 Install from source:
