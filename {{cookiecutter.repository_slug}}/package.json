@@ -8,7 +8,7 @@
     "bin/{{cookiecutter.package_name}}"
   ],
   "files": [
-    "lib/{{cookiecutter.package_name.replace('-', '')}}.sh"
+    "lib/{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.sh"
   ],
   "dependencies": {
     "shellm-shellman": "master"
