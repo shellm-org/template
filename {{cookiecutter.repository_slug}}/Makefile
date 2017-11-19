@@ -1,3 +1,5 @@
+.PHONY: rmdoc
+
 BINDIR := bin
 LIBDIR := lib
 MANDIR := man
@@ -6,21 +8,25 @@ WIKIDIR := wiki
 MANPAGES := $(addprefix $(MANDIR)/,{{cookiecutter.package_name}}.1 {{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.3)
 WIKIPAGES := $(addprefix $(WIKIDIR)/,bin/{{cookiecutter.package_name}}.md lib/{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.md)
 
+ifeq ($(PREFIX), )
+PREFIX := /usr/local
+endif
+
 all : doc
 
 install :
-	@./install.sh "${PREFIX:-/usr/local}"
+	@./install.sh $(PREFIX)
 
 $(MANDIR)/%.1 : $(BINDIR)/%
 	@shellman --format man $< > $@
 
-$(MANDIR)/%.3 : $(LIBDIR)/%.sh
+$(MANDIR)/%.sh.3 : $(LIBDIR)/%.sh
 	@shellman --format man $< > $@
 
 $(WIKIDIR)/bin/%.md : $(BINDIR)/%
 	@shellman --format markdown $< > $@
 
-$(WIKIDIR)/lib/%.md : $(LIBDIR)/%.sh
+$(WIKIDIR)/lib/%.sh.md : $(LIBDIR)/%.sh
 	@shellman --format markdown $< > $@
 
 man : $(MANPAGES)
@@ -28,3 +34,6 @@ man : $(MANPAGES)
 wiki : $(WIKIPAGES)
 
 doc : man wiki
+
+rmdoc:
+	@rm man/* wiki/bin/* wiki/lib/*
