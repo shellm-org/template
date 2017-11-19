@@ -10,20 +10,16 @@
 
 ## Installation
 Installation can be done through
-[basher](https://github.com/basherpm/basher) and
-[bpkg](https://github.com/bpkg/bpkg), with:
+[basher](https://github.com/basherpm/basher) with:
 ```bash
 basher install {{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}
-bpkg install {{cookiecutter.repository_namespace}}/{{cookiecutter.package_name}}  # local installation
-sudo bpkg install {{cookiecutter.repository_namespace}}/{{cookiecutter.package_name}} -g  # global installation
 ```
 
 Install from source:
 ```bash
 git clone https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}
 cd {{cookiecutter.repository_slug}}
-sudo make install
-# or ./install.sh LOCATION_PREFIX
+sudo ./install.sh
 ```
 
 ## Documentation

@@ -2,12 +2,12 @@
   "author_name": "Timothée Mazzucotelli",
   "author_email": "timothee.mazzucotelli@gmail.com",
   "git_username": "Pawamoy",
+  "remote_provider": ["github.com", "gitlab.com", "bitbucket.org"],
   "repository_namespace": "shellm-org",
   "repository_slug": "shellm-example",
   "repository_description": "An example cookiecutter-shellm project template.",
-  "package_name": "shellm-example",
-  "remote_provider": ["github.com", "gitlab.com", "bitbucket.org"],
-  "copyright_holder": "Timothée Mazzucotelli",
+  "package_name": "{{cookiecutter.repository_slug}}",
+  "copyright_holder": "{{cookiecutter.author_name}}",
 
   "global": "false",
   "version": "0.0.1"
