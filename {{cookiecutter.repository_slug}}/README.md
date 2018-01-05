@@ -7,9 +7,6 @@
 - Documentation: https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/wiki
 - License: ISC - https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/LICENSE
 
-- [Installation](#installation)
-- [Usage](#installation)
-
 ## Installation
 Installation with [basher](https://github.com/basherpm/basher):
 ```bash
