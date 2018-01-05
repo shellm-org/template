@@ -3,20 +3,36 @@ set -e
 
 PREFIX="${1:-/usr/local}"
 APP_ROOT="$(dirname "$(readlink -f "$0")")"
+NAMESPACE="{{cookiecutter.repository_namespace}}"
+PACKAGE="{{cookiecutter.repository_slug}}"
+INSTALL_PATH="packages/${NAMESPACE}/${PACKAGE}"
 
-echo "Create directories"
-mkdir -vp "${PREFIX}"/{bin,completions/{bash,zsh},lib/shellm,man/man{1,3}}
+_link() {
+  local s t
+  t="$1"
+  shift
+  if [ $# -eq 1 ] && [ ! -f "$1" ]; then
+    return 1
+  fi
+  for s in "$@"; do
+    [ -e "$t/${s##*/}" ] && echo "  warning: overwriting $t/${s##*/}" >&2
+    ln -fs "$s" "$t"
+  done
+}
 
-echo "Install binaries"
-cp -vR "${APP_ROOT}"/bin/* "${PREFIX}"/bin
+echo "Create directories... "
+mkdir -vp "${PREFIX}"/{bin,completions/{bash,zsh},${INSTALL_PATH},man/man{1,3}}
 
-echo "Install libraries"
-cp -vR "${APP_ROOT}"/lib/* "${PREFIX}"/lib/shellm
+echo "Install package... "
+cp -vRT "${APP_ROOT}" "${PREFIX}/${INSTALL_PATH}"
 
-echo "Install man pages"
-cp -v "${APP_ROOT}"/man/*.1 "${PREFIX}"/man/man1
-cp -v "${APP_ROOT}"/man/*.3 "${PREFIX}"/man/man3
+echo "Link binaries... "
+_link "${PREFIX}"/bin "${PREFIX}/${INSTALL_PATH}"/bin/*
 
-echo "Install completions"
-cp -vR "${APP_ROOT}"/cmp/*.bash "${PREFIX}"/completions/bash
-cp -vR "${APP_ROOT}"/cmp/*.zsh "${PREFIX}"/completions/zsh
+echo "Link man pages... "
+_link "${PREFIX}"/man/man1 "${PREFIX}/${INSTALL_PATH}"/man/*.1
+_link "${PREFIX}"/man/man3 "${PREFIX}/${INSTALL_PATH}"/man/*.3
+
+echo "Link completions... "
+_link "${PREFIX}"/completions/bash "${PREFIX}/${INSTALL_PATH}"/cmp/*.bash
+_link "${PREFIX}"/completions/zsh "${PREFIX}/${INSTALL_PATH}"/cmp/*.zsh

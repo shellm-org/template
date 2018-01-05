@@ -2,7 +2,7 @@
 
 ## \brief {{cookiecutter.repository_description}}
 
-include shellman.sh
+shellm-include shellm-org/shellm-shellman/lib/shellman.sh
 
 [ $# -eq 0 ] && shellman_usage
 

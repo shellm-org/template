@@ -8,7 +8,5 @@
   "repository_description": "An example cookiecutter-shellm project template.",
   "package_name": "{{cookiecutter.repository_slug}}",
   "copyright_holder": "{{cookiecutter.author_name}}",
-
-  "global": "false",
   "version": "0.0.1"
 }

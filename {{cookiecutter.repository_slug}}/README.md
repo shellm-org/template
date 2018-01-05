@@ -1,38 +1,38 @@
 # {{cookiecutter.repository_slug}}
 {{cookiecutter.repository_description}}
 
+- Authors: https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/AUTHORS.md
+- Changelog: https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/CHANGELOG.md
+- Contributing: https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/CONTRIBUTING.md
+- Documentation: https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/wiki
+- License: ISC - https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/LICENSE
+
 - [Installation](#installation)
-- [Documentation](#documentation)
-- [Development](#development)
-- [History](#history)
-- [Credits](#credits)
-- [License](#license)
+- [Usage](#installation)
 
 ## Installation
-Installation can be done through
-[basher](https://github.com/basherpm/basher) with:
+Installation with [basher](https://github.com/basherpm/basher):
 ```bash
 basher install {{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}
 ```
 
-Install from source:
+Installation from source:
 ```bash
 git clone https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}
 cd {{cookiecutter.repository_slug}}
 sudo ./install.sh
 ```
 
-## Documentation
-See the [{{cookiecutter.package_name}} wiki](https://{{cookiecutter.remote_provider}}/{{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}}/wiki).
+## Usage
+Command-line:
+```
+{{cookiecutter.package_name}} -h
+```
 
-## Development
-See [CONTRIBUTING](CONTRIBUTING.md).
-
-## History
-See [CHANGELOG](CHANGELOG.md).
-
-## Credits
-See [AUTHORS](AUTHORS.md).
-
-## License
-See [LICENSE](LICENSE).
+As a library:
+```bash
+# with basher's include
+include {{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}} lib/{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.sh
+# with shellm's include
+shellm-include {{cookiecutter.repository_namespace}}/{{cookiecutter.repository_slug}} lib/{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.sh
+```
