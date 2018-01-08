@@ -1,5 +1,5 @@
-if shellm-ndef __{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_').upper()}}_SH; then
-shellm-define __{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_').upper()}}_SH "
+if shellm-ndef; then
+shellm-define "
   {{cookiecutter.package_name.replace('shellm-', '')}}"
 
 ## \brief {{cookiecutter.repository_description}}
