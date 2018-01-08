@@ -24,7 +24,8 @@ echo "Create directories... "
 mkdir -vp "${PREFIX}"/{bin,completions/{bash,zsh},${INSTALL_PATH},man/man{1,3}}
 
 echo "Install package... "
-cp -vRT "${APP_ROOT}" "${PREFIX}/${INSTALL_PATH}"
+rm -rf "${PREFIX}/${INSTALL_PATH}"
+cp -RT "${APP_ROOT}" "${PREFIX}/${INSTALL_PATH}"
 
 echo "Link binaries... "
 _link "${PREFIX}"/bin "${PREFIX}/${INSTALL_PATH}"/bin/*
