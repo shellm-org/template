@@ -12,7 +12,7 @@ _link() {
   t="$1"
   shift
   if [ $# -eq 1 ] && [ ! -f "$1" ]; then
-    return 1
+    return
   fi
   for s in "$@"; do
     [ -e "$t/${s##*/}" ] && echo "  warning: overwriting $t/${s##*/}" >&2
