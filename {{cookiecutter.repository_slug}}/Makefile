@@ -5,8 +5,8 @@ LIBDIR := lib
 MANDIR := man
 WIKIDIR := wiki
 
-MANPAGES := $(addprefix $(MANDIR)/,{{cookiecutter.package_name}}.1 {{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.3)
-WIKIPAGES := $(addprefix $(WIKIDIR)/,bin/{{cookiecutter.package_name}}.md lib/{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.md)
+MANPAGES := $(addprefix $(MANDIR)/,{{cookiecutter.package_name}}.1 {{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.sh.3)
+WIKIPAGES := $(addprefix $(WIKIDIR)/,bin/{{cookiecutter.package_name}}.md lib/{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.sh.md)
 
 ifeq ($(PREFIX), )
 PREFIX := /usr/local
