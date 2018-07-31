@@ -2,16 +2,22 @@
 
 ## \brief {{cookiecutter.repository_description}}
 
-shellm-include shellm-org/shellm-shellman/lib/shellman.sh
+shellm-source shellm/doc
 
-[ $# -eq 0 ] && shellman_usage
+if [ $# -eq 0 ]; then
+  doc --print-usage "$0"
+  exit 1
+fi
 
 main() {
-  case "$1" in
-    ## \option -h, --help
-    ## Print this help and exit.
-    -h|--help) shellman "$0"; exit 0 ;;
-  esac
+  while [ $# -ne 0 ]; do
+    case "$1" in
+      ## \option -h, --help
+      ## Print this help and exit.
+      -h|--help) doc --print-help "$0"; exit 0 ;;
+    esac
+    shift
+  done
 }
 
 ## \usage {{cookiecutter.package_name}} [-h]
