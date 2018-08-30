@@ -1,39 +1,49 @@
-.PHONY: rmdoc
-
 BINDIR := bin
 LIBDIR := lib
 MANDIR := man
 WIKIDIR := wiki
 
-MANPAGES := $(addprefix $(MANDIR)/,{{cookiecutter.package_name}}.1 {{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.sh.3)
-WIKIPAGES := $(addprefix $(WIKIDIR)/,bin/{{cookiecutter.package_name}}.md lib/{{cookiecutter.package_name.replace('shellm-', '').replace('-', '_')}}.sh.md)
+SCRIPTS := $(sort $(shell cd $(BINDIR) && ls))
+LIBRARIES := $(sort $(shell cd $(LIBDIR) && ls))
+
+MANPAGES := $(addprefix $(MANDIR)/,$(addsuffix .1,$(SCRIPTS)) $(addsuffix .3,$(LIBRARIES)))
+WIKIPAGES := $(addprefix $(WIKIDIR)/,$(addsuffix .md,$(SCRIPTS)) $(addsuffix .md,$(LIBRARIES)))
 
 ifeq ($(PREFIX), )
 PREFIX := /usr/local
 endif
 
-all : doc
+all: doc
 
-install :
-	@./install.sh $(PREFIX)
+install:
+	./install.sh $(PREFIX)
 
-$(MANDIR)/%.1 : $(BINDIR)/%
-	@shellman --format man $< > $@
+$(MANDIR)/%.1: $(BINDIR)/%
+	shellman -tmanpage $< -o $@
 
-$(MANDIR)/%.sh.3 : $(LIBDIR)/%.sh
-	@shellman --format man $< > $@
+$(MANDIR)/%.sh.3: $(LIBDIR)/%.sh
+	shellman -tmanpage $< -o $@
 
-$(WIKIDIR)/bin/%.md : $(BINDIR)/%
-	@shellman --format markdown $< > $@
+$(WIKIDIR)/home.md: templates/wiki_home.md $(BINDIR) $(LIBDIR)
+	shellman -tpath:$< -o $@ \
+	  --context project={{cookiecutter.repository_slug}} \
+	  					scripts="$(SCRIPTS)" \
+	  					libraries="$(LIBRARIES)"
 
-$(WIKIDIR)/lib/%.sh.md : $(LIBDIR)/%.sh
-	@shellman --format markdown $< > $@
+$(WIKIDIR)/_sidebar.md: templates/wiki_sidebar.md $(BINDIR) $(LIBDIR)
+	shellman -tpath:$< -o $@ \
+	  --context project={{cookiecutter.repository_slug}} \
+	            scripts="$(SCRIPTS)" \
+	            libraries="$(LIBRARIES)"
 
-man : $(MANPAGES)
+$(WIKIDIR)/%.md: $(BINDIR)/%
+	shellman -twikipage $< -o $@
 
-wiki : $(WIKIPAGES)
+$(WIKIDIR)/%.sh.md: $(LIBDIR)/%.sh
+	shellman -twikipage $< -o $@
 
-doc : man wiki
+man: $(MANPAGES)
 
-rmdoc:
-	@rm man/* wiki/bin/* wiki/lib/*
+wiki: $(WIKIPAGES) $(WIKIDIR)/home.md $(WIKIDIR)/_sidebar.md
+
+doc: man wiki
