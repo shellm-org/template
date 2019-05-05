@@ -1,7 +1,6 @@
 # cookiecutter-shellm
-Cookiecutter to start a shellm app.
+Cookiecutter to create a shellm app.
 
-- Authors: https://github.com/shellm-org/cookiecutter-shellm/AUTHORS.md
 - Changelog: https://github.com/shellm-org/cookiecutter-shellm/CHANGELOG.md
 - Contributing: https://github.com/shellm-org/cookiecutter-shellm/CONTRIBUTING.md
 - Documentation: https://github.com/shellm-org/cookiecutter-shellm/wiki
