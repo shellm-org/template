@@ -1,5 +1,5 @@
 {% if logo %}<p align="center">
-  <img src="https://gl.githack.com/{{ repository_namespace }}/{{ repository_name }}/raw/master/logo.png">
+  <img src="https://gl.githack.com/{{ repository_namespace }}/{{ repository_name }}/raw/master/{{ logo }}">
 </p>
 
 <h1 align="center">{{ project_description }}</h1>{% else %}<h1 align="center">{{ project_description }}</h1>
