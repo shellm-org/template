@@ -1,10 +1,10 @@
-<p align="center">
+{% if logo %}<p align="center">
   <img src="https://gl.githack.com/{{ repository_namespace }}/{{ repository_name }}/raw/master/logo.png">
 </p>
 
-<h1 align="center">{{ project_name }}</h1>
+<h1 align="center">{{ project_description }}</h1>{% else %}<h1 align="center">{{ project_description }}</h1>
 
-<p align="center">{{ project_description }}</p>
+<p align="center">{{ project_description }}</p>{% endif %}
 
 <p align="center">
   <a href="https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}/commits/master">
