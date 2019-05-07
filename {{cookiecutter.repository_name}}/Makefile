@@ -52,8 +52,8 @@ wiki: $(WIKIPAGES) $(WIKIDIR)/home.md $(WIKIDIR)/_sidebar.md ## Generate wiki pa
 
 doc: man wiki ## Generate man pages and wiki pages.
 
-readme: templates/readme* .shellman.json ## Generate the README.
-	shellman -tpath:templates/readme.md -o README.md
+readme: templates/readme*  ## Generate the README.
+	jinja2 templates/readme.md cookiecutterrc.yml > README.md 2>/dev/null
 
 check-style: ## Run the style tests.
 	bats tests/quality/test_shellcheck.bats

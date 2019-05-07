@@ -6,12 +6,12 @@
 
 <p align="center">{{ project_description }}</p>{% endif %}
 
-<p align="center">
-  <a href="https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}/commits/master">
-    <img alt="pipeline status" src="https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}/badges/master/pipeline.svg" />
+<p align="center">{# following lines are specific to gitlab, do not use repository_provider #}
+  <a href="https://gitlab.com/{{ repository_namespace }}/{{ repository_name }}/commits/master">
+    <img alt="pipeline status" src="https://gitlab.com/{{ repository_namespace }}/{{ repository_name }}/badges/master/pipeline.svg" />
   </a>
-  <!--<a href="https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}/commits/master">
-    <img alt="coverage report" src="https://{{ repository_provider }}/{{ repository_namespace }}/{{ repository_name }}/badges/master/coverage.svg" />
+  <!--<a href="https://gitlab.com/{{ repository_namespace }}/{{ repository_name }}/commits/master">
+    <img alt="coverage report" src="https://gitlab.com/{{ repository_namespace }}/{{ repository_name }}/badges/master/coverage.svg" />
   </a>-->
   <a href="https://gitter.im/{{ repository_namespace }}/{{ repository_name }}">
     <img alt="gitter chat" src="https://badges.gitter.im/{{ repository_namespace }}/{{ repository_name }}.svg" />
@@ -19,6 +19,6 @@
 </p>
 
 {% for section in readme_sections %}
-  {% include "readme_" + section + ".md" with context %}
+{% include "readme_" + section + ".md" with context %}
 
 {% endfor %}
