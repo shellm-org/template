@@ -51,6 +51,6 @@
 
   "script_name": "{{ cookiecutter.repository_name }}",
 
-  "_copy_without_render": ["templates"]
+  "_copy_without_render": ["templates", "tests/quality"]
 
 }
