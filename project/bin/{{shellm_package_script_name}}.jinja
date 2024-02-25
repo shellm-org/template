@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+## \brief {{ project_description }}
+## \usage {{ shell_package_script_name }} [-h]
+while [ $# -ne 0 ]; do
+  case "$1" in
+    ## \option -h, --help
+    ## Print this help and exit.
+    -h|--help) cat "$(shellm locate "{{ repository_namespace }}/{{ repository_name }}")/msg/help"; exit 0 ;;
+  esac
+  shift
+done

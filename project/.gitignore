@@ -4,8 +4,10 @@ __pycache__/
 *.py[cod]
 htmlcov/
 .coverage*
+coverage/
 .ruff_cache/
 site/
 .venv/
 .venvs/
 .cache/
+wiki/

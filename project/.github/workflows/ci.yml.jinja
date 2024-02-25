@@ -14,6 +14,8 @@ env:
   LANG: en_US.utf-8
   LC_ALL: en_US.utf-8
   PYTHONIOENCODING: UTF-8
+  # TODO: Update to use GitHub equivalent variable name (following is GitLab's variable).
+  BASHER_ROOT: $CI_PROJECT_DIR/.basher
 
 jobs:
   quality:
@@ -32,6 +34,7 @@ jobs:
         # instruction to install Basher
         basher install .
 
+    # TODO: Setup Python too, to check MkDocs docs.
     - name: Check if the documentation builds correctly
       run: make check-docs
 
@@ -63,8 +66,14 @@ jobs:
     # TODO: Update with correct instructions.
     - name: Install dependencies
       run: |
-        # instruction to install Basher
-        basher install .
+        git clone --depth=1 https://github.com/basherpm/basher "$BASHER_ROOT"
+        export PATH="$BASHER_ROOT/bin:$PATH"
+        eval "$(basher init -)"
+        basher link "$(pwd)" "{{ repository_namespace }}/{{ repository_name }}"
+        basher install bats-core/bats-core
+        basher install ztombol/bats-assert
+        basher install ztombol/bats-support
+        basher install github.com/shellm-org/cover
 
     - name: Run the test suite
       run: make test

@@ -113,7 +113,7 @@ shellm_package_source_name:
   help: Your shellm package source name (for `shellm source NAME` in scripts/libraries)
   default: "{{ project_name | slugify('_') }}"
 
-shellm_package_command_line_name:
+shellm_package_script_name:
   type: str
   help: Your CLI name if any (for use in the shell)
   default: "{{ project_name | slugify }}"

@@ -203,7 +203,7 @@ The name that will be used to source your package in shell scripts and libraries
 
 ```
 Your CLI name if any (for use in the shell)
-shellm_package_command_line_name? Format: str
+shellm_package_script_name? Format: str
 🎤 [my-project]: 
 ```
 

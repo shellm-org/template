@@ -29,7 +29,7 @@ def copy_license():
     target = 'LICENSE'
     source = os.path.join(
         'licenses',
-        '{{ cookiecutter.copyright_license }}'
+        '{{ copyright_license }}'
             .replace('"', '')
             .replace("'", '')
             .replace('/', '-')
