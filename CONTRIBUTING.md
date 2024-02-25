@@ -1,21 +1,45 @@
 # Contributing
-Contributions are welcome, and they are greatly appreciated!
 
+Contributions are welcome, and they are greatly appreciated!
 Every little bit helps, and credit will always be given.
 
-## Types of Contributions
+## Environment setup
 
-### Bug Reports, Feature Requests, and Feedback
-Create a [new project issue][1]! Try to be as descriptive as possible.
+You need to install [Copier](https://github.com/copier-org/copier).
 
-### Bug Fixes, New Features and Documentation
-Create a [new merge/pull request][2]! Make sure to follow the guidelines.
+```bash
+python3 -m pip install --user pipx
+pipx install copier
+pipx inject copier copier-templates-extensions
+```
 
-## Merge/Pull Request Guidelines
-Make sure to have atomic commits and contextual commit messages!
+## Running tests
 
-[Check out this awesome blog post by Chris Beams for more information.][3]
+To run the tests, use:
 
-[1]: https://github.com/shellm-org/cookiecutter-shellm/issues/new
-[2]: https://github.com/shellm-org/cookiecutter-shellm/compare
-[3]: http://chris.beams.io/posts/git-commit/
+```bash
+make test
+```
+
+## Serving docs
+
+You can create a new virtualenv
+and install `mkdocs` and `mkdocs-material`:
+
+```bash
+python3 -m venv venv
+. venv/bin/activate
+pip install mkdocs mkdocs-material
+mkdocs serve
+```
+
+You can also install `mkdocs` with `pipx` and
+inject `mkdocs-material` in its venv,
+this way you don't need to create one yourself:
+
+```bash
+python3 -m pip install --user pipx
+pipx install mkdocs
+pipx inject mkdocs mkdocs-material
+mkdocs serve
+```

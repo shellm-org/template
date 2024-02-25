@@ -1,0 +1,17 @@
+# {{ project_name }}
+
+{% if repository_provider == "github.com" -%}
+[![ci](https://github.com/{{ repository_namespace }}/{{ repository_name }}/workflows/ci/badge.svg)](https://github.com/{{ repository_namespace }}/{{ repository_name }}/actions?query=workflow%3Aci)
+{% endif -%}
+[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://{{ repository_namespace }}.{{ repository_provider[:-4] }}.io/{{ repository_name }}/)
+[![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#{{ repository_name }}:gitter.im)
+
+{{ project_description }}
+
+## Installation
+
+With `basher`:
+
+```bash
+basher install {{ repository_namespace }}/{{ repository_name }}
+```
