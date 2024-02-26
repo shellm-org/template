@@ -9,13 +9,13 @@ for [shellm](https://github.com/shellm-org) projects.
 
 ## Features
 
-- [Basher](https://github.com/basherpm/basher) setup (installation, dependencies)
+- [Basher](https://github.com/basherpm/basher#readme) setup (installation, dependencies)
 - Pre-configured tools for quality analysis and testing:
-  [shellcheck](https://github.com/koalaman/shellcheck),
-  [bats](https://github.com/bats-core/bats-core)
-- Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs)
-  ([Material theme](https://github.com/squidfunk/mkdocs-material)
-  and "autodoc" [mkdocstrings plugin](https://github.com/mkdocstrings/mkdocstrings))
+  [shellcheck](https://github.com/koalaman/shellcheck#readme),
+  [bats](https://github.com/bats-core/bats-core#readme)
+- Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs#readme)
+  ([Material theme](https://github.com/squidfunk/mkdocs-material#readme)
+  and "autodoc" [mkdocstrings plugin](https://github.com/mkdocstrings/mkdocstrings#readme))
 - Support for GitHub workflows
 - Auto-generated `CHANGELOG.md` from Git (conventional) commits
 - All licenses from [choosealicense.com](https://choosealicense.com/appendix/)
