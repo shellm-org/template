@@ -5,8 +5,12 @@ clean:
 
 cleantests:
 	@rm -rf tests/tmp/.git
+<<<<<<< Updated upstream
 	@rm -rf tests/tmp/empty
 	@rm -f tests/tmp/CHANGELOG.md
+=======
+	@rm -rf tests/tmp/CHANGELOG.md
+>>>>>>> Stashed changes
 
 docs:
 	@mkdocs serve

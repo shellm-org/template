@@ -310,6 +310,8 @@ For example, if after running `make changelog`, the diff
 shows a new `0.5.1` entry in the changelog, you must
 release this exact same version with `make release version=0.5.1`.
 
+TODO: Add a release task to the Makefile.
+
 The `release` action does several things, in this order:
 
 - Stage the changelog file (`CHANGELOG.md`)

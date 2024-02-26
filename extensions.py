@@ -1,7 +1,6 @@
 import re
 import subprocess
 import unicodedata
-from datetime import date
 
 from jinja2.ext import Extension
 
@@ -31,9 +30,3 @@ class SlugifyExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
         environment.filters["slugify"] = slugify
-
-
-class CurrentYearExtension(Extension):
-    def __init__(self, environment):
-        super().__init__(environment)
-        environment.globals["current_year"] = date.today().year
