@@ -1,6 +1,6 @@
 """Generate the code reference pages and navigation."""
 
-# TODO: Update script to list shell files instead of Python modules.
+# TODO: Update script to support globbing custom (user-specified) file extensions, such as shell files.
 
 from pathlib import Path
 
