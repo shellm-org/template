@@ -203,7 +203,7 @@ This is why we offer, with this template,
 a way to automatically update the changelog.
 There is one requirement though for it to work:
 you must use the
-[Angular commit message convention](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit).
+[Angular commit message convention](https://github.com/angular/angular/blob/dcb9deb3631ff4e839f738f2fb97ca6b894256ef/CONTRIBUTING.md#commit).
 
 For a quick reference:
 
