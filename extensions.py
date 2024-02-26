@@ -14,8 +14,8 @@ def git_user_email(default: str) -> str:
     return subprocess.getoutput("git config user.email").strip() or default
 
 
-def slugify(value, separator="-"):
-    value = unicodedata.normalize("NFKD", str(value)).encode("ascii", "ignore").decode("ascii")
+def slugify(value: str, separator: str = "-") -> str:
+    value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
     value = re.sub(r"[^\w\s-]", "", value.lower())
     return re.sub(r"[-_\s]+", separator, value).strip("-_")
 
