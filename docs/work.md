@@ -151,21 +151,20 @@ To summarize, the typical workflow is:
 ```bash
 make setup  # only once
 
-<write code>
+: (write code)
 make format  # to auto-format the code
 
-<write tests>
+: (write tests)
 make test  # to run the test suite
 
 make check  # to check if everything is OK
 
-<commit your changes>
+: (commit your changes)
 
 make changelog  # to update the changelog
-<edit changelog if needed>
+: (edit changelog if needed)
 
 make release version=x.y.z
-```
 
 ## Quality analysis
 
