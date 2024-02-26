@@ -3,7 +3,7 @@
 To use this Copier template, you will need:
 
 - [git v2](https://git-scm.com/)
-- [Python 3](https://www.python.org)
+- [Python 3.8+](https://www.python.org)
 - [Copier](https://copier.readthedocs.io/en/stable/)
 
 To install git version 2,
