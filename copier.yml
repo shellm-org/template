@@ -67,7 +67,7 @@ copyright_holder_email:
 copyright_date:
   type: str
   help: The copyright date
-  default: "{{ current_year }}"
+  default: "{{ '%Y' | strftime }}"
 
 copyright_license:
   type: str
