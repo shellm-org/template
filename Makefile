@@ -6,7 +6,7 @@ clean:
 cleantests:
 	@rm -rf tests/tmp/.git
 	@rm -rf tests/tmp/empty
-	@rm -rf tests/tmp/CHANGELOG.md
+	@rm -f tests/tmp/CHANGELOG.md
 
 docs:
 	@mkdocs serve
