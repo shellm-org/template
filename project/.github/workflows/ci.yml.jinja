@@ -1,0 +1,79 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+    branches:
+    - main
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  LANG: en_US.utf-8
+  LC_ALL: en_US.utf-8
+  PYTHONIOENCODING: UTF-8
+  # TODO: Update to use GitHub equivalent variable name (following is GitLab's variable).
+  BASHER_ROOT: $CI_PROJECT_DIR/.basher
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Fetch all tags
+      run: git fetch --depth=1 --tags
+
+    # TODO: Update with correct instructions.
+    - name: Install dependencies
+      run: |
+        # instruction to install Basher
+        basher install .
+
+    # TODO: Setup Python too, to check MkDocs docs.
+    - name: Check if the documentation builds correctly
+      run: make check-docs
+
+    - name: Check the code quality
+      run: make check-quality
+
+    - name: Check for breaking changes in the API
+      run: make check-api
+
+  tests:
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+        shell:
+        - "bash-4.3.30"
+        - "bash-4.4.12"
+        - "bash-5.0.0"
+        # TODO: Add zsh versions. Use shenv!
+
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # TODO: Update with correct instructions.
+    - name: Install dependencies
+      run: |
+        git clone --depth=1 https://github.com/basherpm/basher "$BASHER_ROOT"
+        export PATH="$BASHER_ROOT/bin:$PATH"
+        eval "$(basher init -)"
+        basher link "$(pwd)" "{{ repository_namespace }}/{{ repository_name }}"
+        basher install bats-core/bats-core
+        basher install ztombol/bats-assert
+        basher install ztombol/bats-support
+        basher install github.com/shellm-org/cover
+
+    - name: Run the test suite
+      run: make test

@@ -1,8 +1,0 @@
-{% for key, value in cookiecutter.items()|sort %}{{ key }}: {{ "{0!r}".format(value) }}
-{% endfor -%}
-readme_sections:
-  - summary
-  - demo
-  - installation
-  - usage
-logo: null
