@@ -33,7 +33,7 @@ release:
 	@test -n "$(version)" || { echo "error: usage: make release version=x.y.z" >&2; exit 1; }
 	@git add CHANGELOG.md
 	@git commit -m "docs: Update changelog for version $(version)"
-	@git tag $(version)
+	@git tag "$(version)"
 	@git push
 	@git push --tags
 
