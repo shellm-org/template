@@ -47,7 +47,7 @@ def _merge_fields(metadata: dict) -> PackageMetadata:
 
 
 def _norm_name(name: str) -> str:
-    return name.replace("_", "-").replace(".", "-").lower()
+    return name.replace("_", "-").replace(".", "-").casefold()
 
 
 def _norm_spec(spec: str) -> set[str]:
