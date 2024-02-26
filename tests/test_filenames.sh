@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -eEu
 
 filenames_with_double_quotes="$(find . -type f | grep '"' || true)"
 if [ -n "${filenames_with_double_quotes}" ]; then
