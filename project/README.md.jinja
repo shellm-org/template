@@ -1,19 +1,39 @@
-# {{ project_name }}
+{% if "logo.svg" | exists -%}
+<p align="center">
+  <img src="https://raw.githubusercontent.com/{{ repository_namespace }}/{{ repository_name }}/master/logo.svg" alt="{{ project_name }} logo">
+</p>
 
-{% if repository_provider == "github.com" -%}
-[![ci](https://github.com/{{ repository_namespace }}/{{ repository_name }}/workflows/ci/badge.svg)](https://github.com/{{ repository_namespace }}/{{ repository_name }}/actions?query=workflow%3Aci)
-{% endif -%}
-[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://{{ repository_namespace }}.{{ repository_provider[:-4] }}.io/{{ repository_name }}/)
-[![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#{{ repository_name }}:gitter.im)
+<h1 align="center">{{ project_name }}</h1>
 
-{{ project_description }}
+<p align="center">{{ project_description }}</p>
+{% else -%}
+<h1 align="center">{{ project_name }}</h1>
+
+<p align="center">{{ project_description }}</p>
+{% endif %}
+
+<p align="center">
+{%- if repository_provider == "github.com" %}
+  <a href="https://github.com/{{ repository_namespace }}/{{ repository_name }}/actions?query=workflow%3Aci">
+    <img alt="ci" src="https://github.com/{{ repository_namespace }}/{{ repository_name }}/workflows/ci/badge.svg">
+  </a>
+{%- endif %}
+  <a href="https://{{ repository_namespace }}.{{ repository_provider[:-4] }}.io/{{ repository_name }}/">
+    <img alt="documentation" src="https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat">
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/{{ repository_namespace }}/{{ repository_name }}/master/demo/demo.svg" alt="{{ project_name }} demo">
+</p>
+<p align="center"><em>Demo generated with <a href="https://github.com/nbedos/termtosvg">termtosvg</a> and <a href="https://github.com/pawamoy/shelldemo">shelldemo</a>.</em></p>
 
 ## Installation
 
 With `basher`:
 
 ```bash
-basher install {{ repository_namespace }}/{{ repository_name }}
+basher install {% if repository_provider != "github.com" %}{{ repository_provider }}/{% endif %}{{ repository_namespace }}/{{ repository_name }}
 ```
 
 ## Usage
@@ -29,4 +49,3 @@ As a library:
 ```bash
 shellm source {{ repository_namespace }}/{{ repository_name }}
 ```
-

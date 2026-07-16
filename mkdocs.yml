@@ -83,8 +83,6 @@ extra:
     link: https://fosstodon.org/@pawamoy
   - icon: fontawesome/brands/twitter
     link: https://twitter.com/pawamoy
-  - icon: fontawesome/brands/gitter
-    link: https://app.gitter.im/#/room/#shellm-org/community:gitter.im
 
 extra_css:
 - css/custom.css

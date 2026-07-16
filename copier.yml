@@ -9,6 +9,7 @@ _jinja_extensions:
 - copier_templates_extensions.TemplateExtensionLoader
 - extensions.py:GitExtension
 - extensions.py:SlugifyExtension
+- extensions.py:ExistsExtension
 _skip_if_exists:
 - CHANGELOG.md
 

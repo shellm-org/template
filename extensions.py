@@ -1,6 +1,7 @@
 import re
 import subprocess
 import unicodedata
+from pathlib import Path
 
 from jinja2.ext import Extension
 
@@ -30,3 +31,13 @@ class SlugifyExtension(Extension):
     def __init__(self, environment):
         super().__init__(environment)
         environment.filters["slugify"] = slugify
+
+
+class ExistsFilter(Extension):
+    def __init__(self, environment):
+        super().__init__(environment)
+        environment.filters["exists"] = self._exists
+
+    @staticmethod
+    def _exists(path: str) -> bool:
+        return Path(path).exists()

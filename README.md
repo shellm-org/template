@@ -2,7 +2,6 @@
 
 [![ci](https://github.com/shellm-org/template/workflows/ci/badge.svg)](https://github.com/shellm-org/template/actions?query=workflow%3Aci)
 [![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://shellm-org.github.io/template/)
-[![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#shellm-org/community:gitter.im)
 
 [Copier](https://github.com/copier-org/copier) template
 for [shellm](https://github.com/shellm-org) projects.
