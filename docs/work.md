@@ -1,49 +1,48 @@
 # Working on a project
 
-TODO: Update following tree (and use `tree` fence).
 
 The generated project has this structure:
 
-```
-📁 your_project ------------------- # your freshly created project!
-├── 📄 CHANGELOG.md --------------- # 
-├── 📄 CODE_OF_CONDUCT.md --------- # 
-├── 📁 config --------------------- # tools configuration files
-│   ├── 📄 coverage.ini ----------- # 
-│   ├── 📄 mypy.ini --------------- # 
-│   ├── 📄 pytest.ini ------------- # 
-│   └── 📄 ruff.toml -------------- # 
-├── 📄 CONTRIBUTING.md ------------ # 
-├── 📁 docs ----------------------- # documentation pages
-│   ├── 📄 changelog.md ----------- # 
-│   ├── 📄 code_of_conduct.md ----- # 
-│   ├── 📄 contributing.md -------- # 
-│   ├── 📄 credits.md ------------- # 
-│   ├── 📁 css -------------------- # extra CSS files
-│   │   ├── 📄 material.css ------- # 
-│   │   └── 📄 mkdocstrings.css --- # 
-│   ├── 📄 index.md --------------- # 
-│   └── 📄 license.md ------------- # 
-├── 📄 duties.py ------------------ # the project's tasks
-├── 📄 LICENSE -------------------- # 
-├── 📄 Makefile ------------------- # for auto-completion (it calls scripts/make)
-├── 📄 mkdocs.yml ----------------- # docs configuration
-├── 📄 pyproject.toml ------------- # project metadata and dependencies
-├── 📄 README.md ------------------ # 
-├── 📁 scripts -------------------- # helper scripts
-│   ├── 📄 gen_credits.py --------- # script to generate credits
-│   ├── 📄 gen_ref_nav.py --------- # script to generate code reference nav
-│   └── 📄 make ------------------- # a convenience script to run tasks
-├── 📁 src ------------------------ # the source code directory
-│   └── 📁 your_package ----------- # your package
-│       ├── 📄 cli.py ------------- # the command line entry point
-│       ├── 📄 __init__.py -------- # 
-│       ├── 📄 __main__.py -------- # 
-│       └── 📄 py.typed ----------- # 
-└── 📁 tests ---------------------- # the tests directory
-    ├── 📄 conftest.py ------------ # pytest fixtures, etc.
-    ├── 📄 __init__.py ------------ # 
-    └── 📄 test_cli.py ------------ # 
+```tree
+your_project ------------------- # your freshly created project!
+    CHANGELOG.md --------------- # 
+    CODE_OF_CONDUCT.md --------- # 
+    config --------------------- # tools configuration files
+        coverage.ini ----------- # 
+        mypy.ini --------------- # 
+        pytest.ini ------------- # 
+        ruff.toml -------------- # 
+    CONTRIBUTING.md ------------ # 
+    docs ----------------------- # documentation pages
+        changelog.md ----------- # 
+        code_of_conduct.md ----- # 
+        contributing.md -------- # 
+        credits.md ------------- # 
+        css -------------------- # extra CSS files
+            material.css ------- # 
+            mkdocstrings.css --- # 
+        index.md --------------- # 
+        license.md ------------- # 
+    duties.py ------------------ # the project's tasks
+    LICENSE -------------------- # 
+    Makefile ------------------- # for auto-completion (it calls scripts/make)
+    mkdocs.yml ----------------- # docs configuration
+    pyproject.toml ------------- # project metadata and dependencies
+    README.md ------------------ # 
+    scripts -------------------- # helper scripts
+        gen_credits.py --------- # script to generate credits
+        gen_ref_nav.py --------- # script to generate code reference nav
+        make ------------------- # a convenience script to run tasks
+    src ------------------------ # the source code directory
+        your_package ----------- # your package
+            cli.py ------------- # the command line entry point
+            __init__.py -------- # 
+            __main__.py -------- # 
+            py.typed ----------- # 
+    tests ---------------------- # the tests directory
+        conftest.py ------------ # pytest fixtures, etc.
+        __init__.py ------------ # 
+        test_cli.py ------------ # 
 ```
 
 ## Environment
@@ -345,13 +344,13 @@ in `mkdocs.yml`.
 
 For example, with these docs structure:
 
-```
-📁 docs
-├── 📄 changelog.md
-├── 📄 index.md
-└── 📁 reference
-    ├── 📄 cli.md
-    └── 📄 logic.md
+```tree
+docs
+    changelog.md
+    index.md
+    reference
+        cli.md
+        logic.md
 ```
 
 ...you can have these navigation items in `mkdocs.yml`:
