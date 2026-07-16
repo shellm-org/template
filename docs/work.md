@@ -5,14 +5,37 @@ The generated project has this structure:
 
 ```tree
 your_project ------------------- # your freshly created project!
+    .copier-answers.yml -------- # answers to the questions asked when generating
+    .editorconfig -------------- # 
+    .envrc --------------------- # 
+    .github -------------------- # GitHub configuration
+        ISSUE_TEMPLATE --------- # issue templates
+            bug_report.md ------ # 
+            config.yml --------- # 
+            feature_request.md - # 
+        workflows -------------- # GitHub Actions workflows
+            ci.yml ------------- # 
+            release.yml -------- # 
+    .gitignore ----------------- # 
     CHANGELOG.md --------------- # 
     CODE_OF_CONDUCT.md --------- # 
-    config --------------------- # tools configuration files
-        coverage.ini ----------- # 
-        mypy.ini --------------- # 
-        pytest.ini ------------- # 
-        ruff.toml -------------- # 
     CONTRIBUTING.md ------------ # 
+    LICENSE -------------------- # 
+    Makefile ------------------- # 
+    README.md ------------------ # 
+    bin ------------------------ # command-line scripts
+        your_script ------------ # the main CLI entry point
+    completion ----------------- # shell completion files
+        your_script.bash ------- # Bash completion
+        your_script.zsh -------- # Zsh completion
+    config --------------------- # tools configuration files
+        git-changelog.toml ----- # 
+        vscode ----------------- # VSCode settings
+            launch.json -------- # 
+            settings.json ------ # 
+            tasks.json --------- # 
+    demo ----------------------- # demo assets
+        input ------------------ # demo input/script
     docs ----------------------- # documentation pages
         changelog.md ----------- # 
         code_of_conduct.md ----- # 
@@ -23,45 +46,49 @@ your_project ------------------- # your freshly created project!
             mkdocstrings.css --- # 
         index.md --------------- # 
         license.md ------------- # 
-    duties.py ------------------ # the project's tasks
-    LICENSE -------------------- # 
-    Makefile ------------------- # for auto-completion (it calls scripts/make)
+    lib ------------------------ # shellm libraries
+        your_script.sh --------- # the main shell library
+    man ------------------------ # manual pages
+        your_script.1 ---------- # CLI man page
+        yourscript.sh.3 -------- # library man page
     mkdocs.yml ----------------- # docs configuration
-    pyproject.toml ------------- # project metadata and dependencies
-    README.md ------------------ # 
+    package.sh ----------------- # packaging script
     scripts -------------------- # helper scripts
         gen_credits.py --------- # script to generate credits
         gen_ref_nav.py --------- # script to generate code reference nav
         make ------------------- # a convenience script to run tasks
     src ------------------------ # the source code directory
         your_package ----------- # your package
-            cli.py ------------- # the command line entry point
-            __init__.py -------- # 
-            __main__.py -------- # 
-            py.typed ----------- # 
+            debug.py ----------- # debugging utilities
+    templates ------------------ # README template parts
+        readme.md -------------- # 
+        readme_demo.md --------- # 
+        readme_installation.md - # 
+        readme_summary.md ------ # 
+        readme_usage.md -------- # 
     tests ---------------------- # the tests directory
-        conftest.py ------------ # pytest fixtures, etc.
-        __init__.py ------------ # 
-        test_cli.py ------------ # 
+        data.bash -------------- # test data/fixtures
+        quality ---------------- # quality tests
+            data.bash ---------- # 
+            test_shellcheck.bats # shellcheck tests
+            test_shellman.bats - # shellman tests
+        test_your_script.bats -- # unit tests for your script
+    wiki ----------------------- # wiki assets
+        bin -------------------- # 
+        lib -------------------- # 
 ```
+
+When the author username is `pawamoy`, an extra
+`docs/.overrides/main.html` file is also generated
+for the documentation theme.
 
 ## Environment
 
 The project is configured to use [direnv](https://direnv.net/).
 If direnv is loaded in your shell, allow it in the project with
-`direnv allow`. It will add the `scripts` folder to your PATH
-when you enter the repository (and remove it when you exit it).
-The `scripts` folder has a `make` Bash script in it:
-it will shadow any `make` command you have in your PATH
-(this is indented!).
+`direnv allow`.
 
-If you don't have or don't use direnv, you can still use
-the official `make` command, though you won't be able
-to pass arguments to some of the actions.
-
-In the rest of the documentation, we will use `make` commands,
-but you can also directly call `scripts/make`.
-
+In the rest of the documentation, we will use `make` commands.
 See [Tasks](#tasks) to learn more.
 
 ## Dependencies
@@ -78,92 +105,72 @@ You can list the available tasks with `make help`.
 
 Available tasks:
 
-- `changelog`: Update the changelog in-place with latest commits.
-  See [the Changelog section](#changelog).
-- `check`: Check it all!
+- `all`: Run quality and unit tests.
+- `check`: Run the quality tests.
   See [the Quality Analysis section](#quality-analysis).
-- `check-quality`: Check the code quality.
+- `check-quality`: Run shellcheck style tests.
   See [the check-quality section](#check-quality).
-- `check-docs`: Check if the documentation builds correctly.
+- `check-docs`: Run shellman documentation tests.
   See [the check-docs section](#check-docs).
-- `clean`: Delete temporary files.
-- `coverage`: Report coverage as text and HTML.
-- `docs`: Serve the documentation (localhost:8000).
-  See [the Documentation section](#documentation).
-  Arguments:
-    - `host="127.0.0.1"`: The host to serve the docs from.
-    - `port=8000`: The port to serve the docs on.
-- `format`: Run formatting tools on the code.
-- `release`: Release a new Python package.
-  See [the Releases section](#releases).
-  Arguments:
-    - `version` The Python package version.
-- `test`: Run the test suite.
+- `doc`: Generate man pages.
+  See [the Man pages section](#man-pages).
+- `help`: Print the available tasks.
+- `man`: Generate man pages.
+- `readme`: Generate the README from templates.
+- `test`: Run the unit tests.
   See [the Tests section](#tests).
-  Arguments:
-    - `match=""`: A pytest expression to filter selected tests.
-- `vscode`: Configure VSCode for the project.
-  See [VSCode setup](#vscode-setup).
 
 
 ### VSCode setup
 
-If you work in VSCode, we provide a `make vscode` action
-that configures settings and tasks. **It will overwrite the following existing
-files, so make sure to back them up:**
+If you work in VSCode, we provide configuration files
+in `config/vscode/`:
 
-- `.vscode/launch.json`
-- `.vscode/settings.json`
-- `.vscode/tasks.json`
+- `launch.json`
+- `settings.json`
+- `tasks.json`
+
+Copy or symlink them into `.vscode/` in your workspace as needed.
 
 ### Makefile
 
 You will notice a Makefile in the repository.
-It's main purpose is to enable auto-completion for the `make` Bash script.
-See [Environment](#environment) on how to transparently call the Bash script
-with auto-completion instead of the Makefile.
+It defines the main tasks used to develop, test, and document
+your shellm project. Use `make help` to list them.
 
 ## Workflow
 
-The first thing you should run when entering your repository is:
+Now you can start writing and editing code in `lib/your_script.sh`
+and command-line scripts in `bin/your_script`.
 
-```bash
-make setup
-```
-
-If you don't have the `make` command,
-you can use `scripts/make setup` directly.
-This will install the project's dependencies.
-
-Now you can start writing and editing code in `lib/your_package`.
-
-- You can auto-format the code with `make format`.
 - You can run a quality analysis with `make check`.
 - Once you wrote tests for your new code,
   you can run the test suite with `make test`.
+- You can generate man pages with `make man`
+  and the README with `make readme`.
 - Once you are ready to publish a new release,
-  run `make changelog`, then `make release version=x.y.z`,
-  where `x.y.z` is the version added to the changelog.
+  update the changelog with `git-changelog`,
+  then use `package.sh` to build the release artifact.
 
 To summarize, the typical workflow is:
 
 ```bash
-make setup  # only once
+: (write code in lib/your_script.sh and bin/your_script)
 
-: (write code)
-make format  # to auto-format the code
-
-: (write tests)
+: (write tests in tests/test_your_script.bats)
 make test  # to run the test suite
 
 make check  # to check if everything is OK
 
+make man  # to generate the man pages
+make readme  # to generate the README
+
 : (commit your changes)
 
-make changelog  # to update the changelog
-: (edit changelog if needed)
+: (update the changelog with git-changelog)
 
-make release version=x.y.z
+: (build and publish the release with package.sh)
+```
 
 ## Quality analysis
 
@@ -175,12 +182,8 @@ make check
 
 This action is actually a composition of several checks:
 
-- `check-quality`: Check the code quality.
-- `check-docs`: Check if the documentation builds correctly.
-- `check-api`: Check for breaking changes in your Python API.
-
-For example, if you are only interested in checking types,
-run `make check-types`.
+- `check-quality`: Run shellcheck on scripts and libraries.
+- `check-docs`: Run shellman to check that man pages can be generated.
 
 TODO: Implement and document each check.
 
@@ -214,7 +217,7 @@ For a quick reference:
 
 Scope and body are optional. Type can be:
 
-- `build`: About packaging, building wheels, etc.
+- `build`: About packaging and building releases.
 - `chore`: About packaging or repo/files management.
 - `ci`: About Continuous Integration.
 - `docs`: About documentation.
@@ -256,7 +259,7 @@ Once you are ready to publish a new release of your package,
 run the following command:
 
 ```
-make changelog
+git-changelog
 ```
 
 This will update the changelog in-place, using the latest,
@@ -291,50 +294,39 @@ you need), and use the new version (the one that was added
 into the changelog) to create a new release:
 
 ```
-make release version=x.y.z
+package.sh
 ```
 
 ...where x.y.z is the version added in the changelog.
 
 ## Releases
 
-As seen in the previous section, you can use the `release` rule
-of the Makefile to publish new versions of the Python package.
+As seen in the previous section, you can use `package.sh`
+to publish new versions of the shellm package.
 
-Usually, just before running `make release version=x.y.z`,
-you run `make changelog` to update the changelog and
-use the newly added version as the argument to `make release`.
+Usually, just before running `package.sh`,
+you run `git-changelog` to update the changelog and
+use the newly added version when tagging the release.
 
-For example, if after running `make changelog`, the diff
+For example, if after running `git-changelog`, the diff
 shows a new `0.5.1` entry in the changelog, you must
-release this exact same version with `make release version=0.5.1`.
+release this exact same version, e.g. by tagging `v0.5.1`.
 
-TODO: Add a release task to the Makefile.
-
-The `release` action does several things, in this order:
-
-- Stage the changelog file (`CHANGELOG.md`)
-- Commit the changes with a message like `chore: Prepare release 0.5.1`
-- Tag the commit with that version
-- Push the commits
-- Push the tags
-- Build the package dist and wheel
-- Publish the dist and wheel to PyPI.org
-- Build and deploy the documentation site
+The `package.sh` script packages the script, library,
+and completion files so they can be installed with
+[Basher](https://github.com/basherpm/basher).
 
 ## Documentation
 
 The documentation is built with [Mkdocs](https://www.mkdocs.org/),
 the [Material for Mkdocs](https://squidfunk.github.io/mkdocs-material/) theme,
-and the [mkdocstrings](https://github.com/pawamoy/mkdocstrings) plugin.
+and the [mkdocstrings](https://github.com/pawamoy/mkdocstrings) plugin
+with the shell handler.
 
 ### Writing
 
 The pages are written in Markdown, and thanks to `mkdocstrings`,
-even your Python docstrings can be written in Markdown.
-`mkdocstrings` particularly supports the
-[Google-style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
-for docstrings.
+your shell script help text and comments can be injected into pages.
 
 The documentation configuration is written into `mkdocs.yml`,
 at the root of the project. The Markdown pages are written
@@ -359,32 +351,24 @@ docs
 nav:
 - Overview: index.md
 - Code Reference:
-  - cli.py: reference/cli.md
-  - logic.py: reference/logic.md
+  - cli: reference/cli.md
+  - logic: reference/logic.md
 - Changelog: changelog.md
 ```
 
 Note that we matched the sections in the navigation with the folder tree,
 but that is not mandatory.
 
-`mkdocstrings` allows you to inject documentation of Python objects
+`mkdocstrings` allows you to inject documentation of shell scripts
 in Markdown pages with the following syntax:
 
 ```md
-::: path.to.object
+::: path/to/script
     OPTIONS
 ```
 
 ...where `OPTIONS` is a YAML block containing configuration options
-for both the selection of Python objects and their rendering.
-
-You can document an entire module or even package with a single instruction:
-
-```md
-::: your_package
-```
-
-...but it's usually better to have each module injected in a separate page.
+for both the selection of shell objects and their rendering.
 
 For more information about `mkdocstrings`,
 check [its documentation](https://pawamoy.github.io/mkdocstrings).
@@ -392,29 +376,28 @@ check [its documentation](https://pawamoy.github.io/mkdocstrings).
 ### Serving
 
 MkDocs provides a development server with files watching and live-reload.
-Run `make docs` to serve your documentation on `localhost:8000`.
+Run `mkdocs serve` to serve your documentation on `localhost:8000`.
 
 If you run it in a remote host (Linux VM) and would like to access it
 from your local browser, bind the server to 0.0.0.0 instead:
 
 ```bash
-make docs host=0.0.0.0
+mkdocs serve -a 0.0.0.0:8000
 ```
 
 If needed, you can also change the port used:
 
 ```bash
-make docs host=0.0.0.0 port=5000
+mkdocs serve -a 0.0.0.0:5000
 ```
 
 ### Deploying
 
 MkDocs has a `gh-deploy` command that will deploy
-you documentation on GitHub pages.
-We make use of this command in the `docs-deploy` action:
+your documentation on GitHub pages:
 
 ```bash
-make docs-deploy
+mkdocs gh-deploy
 ```
 
 If you'd prefer to deploy on ReadTheDocs instead,
