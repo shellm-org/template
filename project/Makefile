@@ -31,9 +31,6 @@ man: $(MANPAGES) ## Generate man pages.
 
 doc: man ## Generate man pages.
 
-readme: templates/readme*  ## Generate the README.
-	jinja2 templates/readme.md > README.md 2>/dev/null
-
 check-quality: ## Run the style tests.
 	bats tests/quality/test_shellcheck.bats
 
