@@ -74,8 +74,7 @@ theme:
       name: Switch to system preference
 
 extra_css:
-- css/material.css
-- css/mkdocstrings.css
+- css/apidocs.css
 
 markdown_extensions:
 - attr_list
@@ -119,10 +118,6 @@ plugins:
     type: timeago #}
 - minify:
     minify_html: !ENV [DEPLOY, false]
-- group:
-    enabled: !ENV [MATERIAL_INSIDERS, false]
-    plugins:
-    - typeset
 
 extra:
   social:
