@@ -93,7 +93,66 @@ See [Tasks](#tasks) to learn more.
 
 ## Dependencies
 
-TODO: Document dependency management.
+Dependencies are managed with [Basher](https://github.com/basherpm/basher),
+a package manager for shell scripts and libraries.
+
+### Runtime dependencies
+
+Runtime dependencies are declared in `package.sh`
+through the `DEPS` variable:
+
+```bash title="package.sh"
+DEPS="github.com/shellm-org/core"
+```
+
+Each entry is a Git repository in the form
+`provider/namespace/repo` or `github.com/namespace/repo`.
+Multiple dependencies are separated by colons:
+
+```bash title="package.sh"
+DEPS="github.com/shellm-org/core:github.com/owner/other-dep"
+```
+
+When a user installs your package with basher,
+these dependencies are cloned and installed automatically:
+
+```bash
+basher install your_namespace/your_project
+```
+
+### Development dependencies
+
+During development, you need Basher itself installed.
+Then link your local clone of the project and install its dependencies:
+
+```bash
+cd your_project
+basher link . your_namespace/your_project
+```
+
+This will resolve the `DEPS` listed in `package.sh`
+and make them available under `$BASHER_ROOT/packages`.
+
+Tests also rely on Basher packages such as
+`bats-core/bats-core`, `ztombol/bats-assert`,
+`ztombol/bats-support`, and `github.com/shellm-org/cover`.
+These are installed by the CI workflow and can be installed
+locally the same way:
+
+```bash
+basher install bats-core/bats-core
+basher install ztombol/bats-assert
+basher install ztombol/bats-support
+basher install github.com/shellm-org/cover
+```
+
+### Adding or updating dependencies
+
+To add a new runtime dependency, edit `package.sh`
+and append the dependency to the `DEPS` variable.
+To remove one, delete its entry. After changing `package.sh`,
+run `basher link .` again so the new dependencies are
+fetched and linked in your development environment.
 
 ## Tasks
 
