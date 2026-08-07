@@ -44,7 +44,7 @@ copyright_date: '2020'
 copyright_holder: "Timothée Mazzucotelli"
 copyright_holder_email: dev@pawamoy.fr
 copyright_license: ISC License
-project_description: Automatic documentation from sources, for MkDocs.
+project_description: Automatic documentation from sources, for Zensical.
 project_name: shellm trace
 shellm_package_script_name: ""
 shellm_package_source_name: trace

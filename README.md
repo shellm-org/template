@@ -1,7 +1,7 @@
 # shellm template
 
 [![ci](https://github.com/shellm-org/template/workflows/ci/badge.svg)](https://github.com/shellm-org/template/actions?query=workflow%3Aci)
-[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://shellm-org.github.io/template/)
+[![documentation](https://img.shields.io/badge/docs-zensical-FF9100.svg?style=flat)](https://shellm-org.github.io/template/)
 
 [Copier](https://github.com/copier-org/copier) template
 for [shellm](https://github.com/shellm-org) projects.
@@ -12,8 +12,7 @@ for [shellm](https://github.com/shellm-org) projects.
 - Pre-configured tools for quality analysis and testing:
   [shellcheck](https://github.com/koalaman/shellcheck#readme),
   [bats](https://github.com/bats-core/bats-core#readme)
-- Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs#readme)
-  ([Material theme](https://github.com/squidfunk/mkdocs-material#readme)
+- Documentation built with [Zensical](https://github.com/zensical/zensical#readme)
   and "autodoc" [mkdocstrings plugin](https://github.com/mkdocstrings/mkdocstrings#readme))
 - Support for GitHub workflows
 - Auto-generated `CHANGELOG.md` from Git (conventional) commits

@@ -215,7 +215,7 @@ to run your program.
 At this point, Copier will generate the project in the specified directory:
 
 ```
-    create  mkdocs.yml
+    create  zensical.toml
     create  .copier-answers.yml
     create  README.md
     create  Makefile
@@ -239,9 +239,9 @@ At this point, Copier will generate the project in the specified directory:
     create  docs/code_of_conduct.md
     create  docs/changelog.md
     create  docs/reference/
-    create  docs/reference/cli.md
+    create  docs/reference/api.md
     create  docs/css/
-    create  docs/css/mkdocstrings.css
+    create  docs/css/apidocs.css
     create  .github/
     create  .github/FUNDING.yml
     create  .github/workflows/

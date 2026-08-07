@@ -31,14 +31,14 @@ man: $(MANPAGES) ## Generate man pages.
 
 doc: man ## Generate man pages.
 
-check-quality: ## Run the style tests.
-	bats tests/quality/test_shellcheck.bats
+check: check-quality check-docs ## Run all checks.
+
+check-quality: ## Run ShellCheck on configured scripts and libraries.
+	@if [ -n "$(strip $(SCRIPTS))" ]; then shellcheck -x $(SCRIPTS); fi
+	@if [ -n "$(strip $(LIBRARIES))" ]; then shellcheck -xe SC2148 $(LIBRARIES); fi
 
 check-docs: ## Run the documentation tests.
-	bats tests/quality/test_shellman.bats
-
-check: ## Run the quality tests.
-	bats tests/quality/*.bats
+	uvx --with mkdocstrings-shell zensical build -s
 
 test: ## Run the unit tests.
 	cover $(shell type bats | cut -d' ' -f3-) tests/*.bats

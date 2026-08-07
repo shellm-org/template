@@ -43,20 +43,21 @@ your_project ------------------- # your freshly created project!
         credits.md ------------- # 
         css -------------------- # extra CSS files
             material.css ------- # 
-            mkdocstrings.css --- # 
+            apidocs.css -------- # 
         index.md --------------- # 
         license.md ------------- # 
+        reference -------------- # API reference pages
+            api.md ------------- # 
     lib ------------------------ # shellm libraries
         your_script.sh --------- # the main shell library
     man ------------------------ # manual pages
         your_script.1 ---------- # CLI man page
         yourscript.sh.3 -------- # library man page
-    mkdocs.yml ----------------- # docs configuration
     package.sh ----------------- # packaging script
     scripts -------------------- # helper scripts
         gen_credits.py --------- # script to generate credits
-        gen_ref_nav.py --------- # script to generate code reference nav
         make ------------------- # a convenience script to run tasks
+    zensical.toml -------------- # docs configuration
     src ------------------------ # the source code directory
         your_package ----------- # your package
             debug.py ----------- # debugging utilities
@@ -156,29 +157,26 @@ fetched and linked in your development environment.
 
 ## Tasks
 
-TODO: Design task system and document it.
-
-To run a task, use `make TASK [ARG=VALUE...]`.
-You can run multiple tasks at once: `make TASK1 ARG=VALUE TASK2`.
-You can list the available tasks with `make help`.
+Tasks are declared in the `Makefile` at the root of the project.
+You can list them with `make help`, and run them with `make TASK`.
 
 Available tasks:
 
 - `all`: Run quality and unit tests.
-- `check`: Run the quality tests.
-  See [the Quality Analysis section](#quality-analysis).
+- `check`: Run the quality tests (shellcheck + shellman).
+  See [Quality analysis](#quality-analysis).
 - `check-quality`: Run shellcheck style tests.
-  See [the check-quality section](#check-quality).
+  See [Quality analysis](#quality-analysis).
 - `check-docs`: Run shellman documentation tests.
-  See [the check-docs section](#check-docs).
-- `doc`: Generate man pages.
-  See [the Man pages section](#man-pages).
-- `help`: Print the available tasks.
-- `man`: Generate man pages.
+  See [Quality analysis](#quality-analysis).
+- `doc`: Generate the man pages (alias for `man`).
+  See [Man pages](#man-pages).
+- `help`: Print the available tasks and their descriptions.
+- `man`: Generate man pages from scripts and libraries with shellman.
+  See [Man pages](#man-pages).
 - `readme`: Generate the README from templates.
-- `test`: Run the unit tests.
-  See [the Tests section](#tests).
-
+- `test`: Run the unit tests with bats.
+  See [Tests](#tests).
 
 ### VSCode setup
 
@@ -197,16 +195,58 @@ You will notice a Makefile in the repository.
 It defines the main tasks used to develop, test, and document
 your shellm project. Use `make help` to list them.
 
+### Task details
+
+#### `all`
+
+Run both quality checks and unit tests. Equivalent to running
+`make check` followed by `make test`.
+
+#### `check`
+
+Run all quality checks. This is the composition of `check-quality`
+and `check-docs`.
+
+#### `check-quality`
+
+Run shellcheck on every shell script and library in the project.
+The tests are driven by `tests/quality/test_shellcheck.bats`.
+
+#### `check-docs`
+
+Run shellman to verify that the documented scripts and libraries
+can be turned into man pages. The tests are driven by
+`tests/quality/test_shellman.bats`.
+
+#### `man` / `doc`
+
+Generate man pages from the executable files in `bin/` and the
+shell libraries in `lib/`. The generated files are written to
+`man/`:
+
+- `bin/your_script` becomes `man/your_script.1`
+- `lib/your_script.sh` becomes `man/your_script.sh.3`
+
+See [Man pages](#man-pages) for more details.
+
+#### `test`
+
+Run the unit tests in `tests/*.bats` using bats and the shellm
+`cover` utility. See [Tests](#tests) for more details.
+
 ## Workflow
 
 Now you can start writing and editing code in `lib/your_script.sh`
 and command-line scripts in `bin/your_script`.
 
 - You can run a quality analysis with `make check`.
+  See [Quality analysis](#quality-analysis).
 - Once you wrote tests for your new code,
   you can run the test suite with `make test`.
+  See [Tests](#tests).
 - You can generate man pages with `make man`
   and the README with `make readme`.
+  See [Man pages](#man-pages).
 - Once you are ready to publish a new release,
   update the changelog with `git-changelog`,
   then use `package.sh` to build the release artifact.
@@ -235,7 +275,7 @@ make readme  # to generate the README
 
 The quality checks are started with:
 
-```
+```bash
 make check
 ```
 
@@ -244,7 +284,51 @@ This action is actually a composition of several checks:
 - `check-quality`: Run shellcheck on scripts and libraries.
 - `check-docs`: Run shellman to check that man pages can be generated.
 
-TODO: Implement and document each check.
+### check-quality
+
+Run shellcheck on every executable file in `bin/` and every shell
+library in `lib/`:
+
+```bash
+make check-quality
+```
+
+Warnings reported by shellcheck should be fixed or explicitly
+disabled with a directive when justified.
+
+### check-docs
+
+Run shellman to verify that the documented scripts and libraries
+can be rendered as man pages:
+
+```bash
+make check-docs
+```
+
+Fix any missing or invalid shellman comments if the check fails.
+
+## Tests
+
+Run the unit tests with:
+
+```bash
+make test
+```
+
+This executes every `.bats` file in the `tests/` directory
+(excluding `tests/quality/`) using bats and the shellm
+`cover` utility for code coverage.
+
+Add new tests in `tests/test_<script>.bats`. The test files use
+the bats-support and bats-assert helpers:
+
+```bash
+load "$(basher package-path ztombol/bats-support)/load.bash"
+load "$(basher package-path ztombol/bats-assert)/load.bash"
+```
+
+Make sure these helpers are installed in your Basher environment
+before running the tests locally.
 
 ## Continuous Integration
 
@@ -268,7 +352,7 @@ you must use the
 
 For a quick reference:
 
-```
+```text
 <type>[(scope)]: Subject
 
 [Body]
@@ -293,7 +377,7 @@ For other types of commits, you can do as you like.
 Subject (and body) must be valid Markdown.
 If you write a body, please add issues references at the end:
 
-```
+```text
 Body.
 
 References: #10, #11.
@@ -302,11 +386,11 @@ Fixes #15.
 
 Examples:
 
-```
+```text
 feat: Add training route
 ```
 
-```
+```text
 fix: Stop deleting user data
 ```
 
@@ -317,8 +401,8 @@ of [semantic versioning](https://semver.org/).
 Once you are ready to publish a new release of your package,
 run the following command:
 
-```
-git-changelog
+```bash
+make changelog
 ```
 
 This will update the changelog in-place, using the latest,
@@ -352,33 +436,46 @@ make sure its contents are correct (add, remove or edit anything
 you need), and use the new version (the one that was added
 into the changelog) to create a new release:
 
-```
-package.sh
+```bash
+make release version=x.y.z
 ```
 
 ...where x.y.z is the version added in the changelog.
 
 ## Releases
 
-As seen in the previous section, you can use `package.sh`
+As seen in the previous section, you can use `make release`
 to publish new versions of the shellm package.
 
-Usually, just before running `package.sh`,
-you run `git-changelog` to update the changelog and
+Usually, just before running `make release`,
+you run `make changelog` to update the changelog and
 use the newly added version when tagging the release.
 
-For example, if after running `git-changelog`, the diff
+For example, if after running `make changelog`, the diff
 shows a new `0.5.1` entry in the changelog, you must
 release this exact same version, e.g. by tagging `v0.5.1`.
 
-The `package.sh` script packages the script, library,
-and completion files so they can be installed with
-[Basher](https://github.com/basherpm/basher).
+## Manual pages
+
+Generate the manpages with:
+
+```bash
+make man
+```
+
+Manpages are produced from the executable files in `bin/`
+and the shell libraries in `lib/` using [shellman](https://github.com/pawamoy/shellman):
+
+- `bin/your_script` becomes `man/your_script.1`
+- `lib/your_script.sh` becomes `man/your_script.sh.3`
+
+Make sure your scripts contain valid shellman documentation
+comments so the manpages render correctly.
 
 ## Documentation
 
-The documentation is built with [Mkdocs](https://www.mkdocs.org/),
-the [Material for Mkdocs](https://squidfunk.github.io/mkdocs-material/) theme,
+The documentation is built with [Zensical](https://zensical.org/),
+using the [Material theme](https://squidfunk.github.io/mkdocs-material/),
 and the [mkdocstrings](https://github.com/pawamoy/mkdocstrings) plugin
 with the shell handler.
 
@@ -387,11 +484,11 @@ with the shell handler.
 The pages are written in Markdown, and thanks to `mkdocstrings`,
 your shell script help text and comments can be injected into pages.
 
-The documentation configuration is written into `mkdocs.yml`,
+The documentation configuration is written into `zensical.toml`,
 at the root of the project. The Markdown pages are written
 in the `docs/` directory. You can use any level of nesting you want.
 The left-sidebar navigation is configured through the `nav` key
-in `mkdocs.yml`.
+in `zensical.toml`.
 
 For example, with these docs structure:
 
@@ -404,15 +501,17 @@ docs
         logic.md
 ```
 
-...you can have these navigation items in `mkdocs.yml`:
+...you can have these navigation items in `zensical.toml`:
 
-```yaml title="mkdocs.yml"
-nav:
-- Overview: index.md
-- Code Reference:
-  - cli: reference/cli.md
-  - logic: reference/logic.md
-- Changelog: changelog.md
+```toml title="zensical.toml"
+nav = [
+  { "Overview" = "index.md" },
+  { "Code Reference" = [
+    { "cli" = "reference/cli.md" },
+    { "logic" = "reference/logic.md" },
+  ] },
+  { "Changelog" = "changelog.md" },
+]
 ```
 
 Note that we matched the sections in the navigation with the folder tree,
@@ -434,29 +533,29 @@ check [its documentation](https://pawamoy.github.io/mkdocstrings).
 
 ### Serving
 
-MkDocs provides a development server with files watching and live-reload.
-Run `mkdocs serve` to serve your documentation on `localhost:8000`.
+Zensical provides a development server with files watching and live-reload.
+Run `zensical serve` to serve your documentation on `localhost:8000`.
 
 If you run it in a remote host (Linux VM) and would like to access it
 from your local browser, bind the server to 0.0.0.0 instead:
 
 ```bash
-mkdocs serve -a 0.0.0.0:8000
+zensical serve -a 0.0.0.0:8000
 ```
 
 If needed, you can also change the port used:
 
 ```bash
-mkdocs serve -a 0.0.0.0:5000
+zensical serve -a 0.0.0.0:5000
 ```
 
 ### Deploying
 
-MkDocs has a `gh-deploy` command that will deploy
+Zensical has a `gh-deploy` command that will deploy
 your documentation on GitHub pages:
 
 ```bash
-mkdocs gh-deploy
+zensical gh-deploy
 ```
 
 If you'd prefer to deploy on ReadTheDocs instead,

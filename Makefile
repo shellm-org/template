@@ -8,10 +8,10 @@ cleantests:
 	@rm -rf tests/tmp/CHANGELOG.md
 
 docs:
-	@mkdocs serve
+	@uvx --with mkdocstrings-shell zensical build -s
 
 docs-deploy:
-	@mkdocs gh-deploy
+	@zensical gh-deploy
 
 format:
 	@ruff format

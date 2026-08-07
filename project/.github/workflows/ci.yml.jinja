@@ -13,9 +13,7 @@ defaults:
 env:
   LANG: en_US.utf-8
   LC_ALL: en_US.utf-8
-  PYTHONIOENCODING: UTF-8
-  # TODO: Update to use GitHub equivalent variable name (following is GitLab's variable).
-  BASHER_ROOT: $CI_PROJECT_DIR/.basher
+  BASHER_ROOT: {% raw %}${{ github.workspace }}{% endraw %}/.basher
 
 jobs:
   quality:
@@ -28,13 +26,16 @@ jobs:
     - name: Fetch all tags
       run: git fetch --depth=1 --tags
 
-    # TODO: Update with correct instructions.
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+
     - name: Install dependencies
       run: |
         # instruction to install Basher
         basher install .
 
-    # TODO: Setup Python too, to check MkDocs docs.
     - name: Check if the documentation builds correctly
       run: make check-docs
 
@@ -52,20 +53,30 @@ jobs:
         - macos-latest
         - windows-latest
         shell:
-        - "bash-4.3.30"
-        - "bash-4.4.12"
-        - "bash-5.0.0"
-        # TODO: Add zsh versions. Use shenv!
+        - "zsh-5.9"
+        - "zsh-5.8.1"
+        - "zsh-5.8"
 
     runs-on: {% raw %}${{ matrix.os }}{% endraw %}
+
+    env:
+      SHENV_VERSION: {% raw %}${{ matrix.shell }}{% endraw %}
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
-    # TODO: Update with correct instructions.
-    - name: Install dependencies
+    - name: Install shenv and the selected Zsh version
       run: |
+        export SHENV_ROOT="$HOME/.shenv"
+        git clone --depth=1 https://github.com/shenv/shenv "$SHENV_ROOT"
+        export PATH="$SHENV_ROOT/bin:$PATH"
+        eval "$(shenv init -)"
+        shenv install "$SHENV_VERSION"
+        echo "SHENV_ROOT=$SHENV_ROOT" >> "$GITHUB_ENV"
+        echo "$SHENV_ROOT/bin" >> "$GITHUB_PATH"
+        echo "$SHENV_ROOT/shims" >> "$GITHUB_PATH"
+
         git clone --depth=1 https://github.com/basherpm/basher "$BASHER_ROOT"
         export PATH="$BASHER_ROOT/bin:$PATH"
         eval "$(basher init -)"
@@ -76,4 +87,4 @@ jobs:
         basher install github.com/shellm-org/cover
 
     - name: Run the test suite
-      run: make test
+      run: zsh -c 'make test'
