@@ -1,7 +1,0 @@
-# demo: charinterval=0
-cdrepo {{ cookiecutter.repository_namespace }}/{{ cookiecutter.repository_name }}/demo
-export PROFILE_PROMPT='\[\033[00;34m\]{{ cookiecutter.repository_name }} demo \[\033[00;35m\]\$ \[\033[00m\]'
-
-termtosvg -g 100x20 demo.svg -t window_frame  # demo: charinterval=0.06; sleep 2
-# write your commands here
-# demo: sleep 1

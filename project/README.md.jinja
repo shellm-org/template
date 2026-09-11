@@ -1,0 +1,51 @@
+{% if "logo.svg" | exists -%}
+<p align="center">
+  <img src="https://raw.githubusercontent.com/{{ repository_namespace }}/{{ repository_name }}/master/logo.svg" alt="{{ project_name }} logo">
+</p>
+
+<h1 align="center">{{ project_name }}</h1>
+
+<p align="center">{{ project_description }}</p>
+{% else -%}
+<h1 align="center">{{ project_name }}</h1>
+
+<p align="center">{{ project_description }}</p>
+{% endif %}
+
+<p align="center">
+{%- if repository_provider == "github.com" %}
+  <a href="https://github.com/{{ repository_namespace }}/{{ repository_name }}/actions?query=workflow%3Aci">
+    <img alt="ci" src="https://github.com/{{ repository_namespace }}/{{ repository_name }}/workflows/ci/badge.svg">
+  </a>
+{%- endif %}
+  <a href="https://{{ repository_namespace }}.{{ repository_provider[:-4] }}.io/{{ repository_name }}/">
+    <img alt="documentation" src="https://img.shields.io/badge/docs-zensical-FF9100.svg?style=flat">
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/{{ repository_namespace }}/{{ repository_name }}/master/demo/demo.svg" alt="{{ project_name }} demo">
+</p>
+<p align="center"><em>Demo generated with <a href="https://github.com/nbedos/termtosvg">termtosvg</a> and <a href="https://github.com/pawamoy/shelldemo">shelldemo</a>.</em></p>
+
+## Installation
+
+With `basher`:
+
+```bash
+basher install {% if repository_provider != "github.com" %}{{ repository_provider }}/{% endif %}{{ repository_namespace }}/{{ repository_name }}
+```
+
+## Usage
+
+Command-line:
+
+```
+{{ shellm_package_script_name }} -h
+```
+
+As a library:
+
+```bash
+shellm source {{ repository_namespace }}/{{ repository_name }}
+```
